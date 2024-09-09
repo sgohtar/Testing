@@ -1,0 +1,55 @@
+package hello;
+
+import org.testng.annotations.Test;
+
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.AfterMethod;
+
+
+public class NewTest7 {
+	WebDriver driver;
+  @Test
+  public void f() throws InterruptedException  {
+	 WebDriverManager.chromedriver().setup();
+	 driver = new ChromeDriver();
+	 driver.get("https://ui.vision/demo/webtest/frames/");
+	 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	 driver.manage().window().maximize();
+	 Thread.sleep(3000);
+	// driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+	 WebElement frame1 = driver.findElement(By.xpath("//frame[@src='frame_1.html']"));
+	 driver.switchTo().frame(frame1);
+	 driver.findElement(By.xpath("//input[@name='mytext1']")).sendKeys("hello");
+	 
+	 driver.switchTo().defaultContent();
+	 
+	 WebElement frame2 = driver.findElement(By.xpath("//frame[@src='frame_2.html']"));
+	 driver.switchTo().frame(frame2);
+	 driver.findElement(By.xpath("//input[@name='mytext2']")).sendKeys("sahil");
+	 
+	 driver.switchTo().defaultContent();
+	 WebElement frame3 = driver.findElement(By.xpath("//frame[@src='frame_3.html']"));
+	 driver.switchTo().frame(frame3);
+	 driver.findElement(By.xpath("//input[@name='mytext3']")).sendKeys("sasshil");
+	 
+	//inner frame 
+	 driver.switchTo().frame(0);
+	 driver.findElement(By.xpath("//div[@id='i8']//div[@class='AB7Lab Id5V1']")).click();
+  }
+
+  @AfterMethod
+  public void afterMethod() {
+	  driver.quit();
+  }
+
+}
